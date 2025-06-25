@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import useAxiosSecure from "../axios/useAxiosSecure";
@@ -55,12 +56,17 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, [axiosSecure]);
 
+  const handleUpdatedPass=(password)=>{
+    
+    return updatePassword(user, password)
+  }
+
   const value = {
     createUser,
     user,
     loading,
     logOut,
-    logIn
+    logIn,handleUpdatedPass
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
