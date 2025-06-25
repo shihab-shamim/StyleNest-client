@@ -8,6 +8,7 @@ import TestPrivate from "../pages/TestPrivate";
 import Private from "../private/Private";
 import Dashboard from "../layout/Dashboard";
 import MyCart from "../pages/dashboard/MyCart";
+import Profile from "../pages/user/Profile";
 
 
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         {
           path:"cart",
           element:<Private><MyCart/></Private>
+        },
+        {
+          path:'profile',
+          element:<Private><Profile/></Private>
         }
       ]
 

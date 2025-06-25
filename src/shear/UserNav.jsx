@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Menu, X, ShoppingCart, Package, User, Star } from "lucide-react";
 import { Link } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 export default function UserNav() {
+  const {user}=useAuth();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
