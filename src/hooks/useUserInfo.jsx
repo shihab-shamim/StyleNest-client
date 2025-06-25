@@ -4,11 +4,12 @@ import useAxiosSecure from '../axios/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
 const useUserInfo = () => {
+    const axiosSecure=useAxiosSecure()
     const {user}=useAuth()
     const {data,refetch,isLoading} = useQuery({ 
         queryKey: ['user'], 
         queryFn: async()=>{
-            const {data}=await useAxiosSecure.get(`/user?email=${user?.email}`)
+            const {data}=await axiosSecure.get(`/user?email=${user?.email}`)
           return data;
 
 
