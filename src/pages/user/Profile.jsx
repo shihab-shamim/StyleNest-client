@@ -18,7 +18,6 @@ const Profile = () => {
  const [isOpen, setIsOpen] = useState(false);
  const [isOpenPass, setIsOpenPass] = useState(false);
  const [type,setType] =useState(false)
- console.log(type);
  const axiosSecure=useAxiosSecure()
   const queryClient = useQueryClient()
    const userPost = useMutation({
@@ -56,29 +55,22 @@ const Profile = () => {
 const handleSubmitePass =async(e)=>{
     e.preventDefault()
     const newPassword=e.target?.password?.value;
-    // console.log(password);
-//     updatePassword(auth?.user, newPassword).then(() => {
-//         alert("updated password")
-//   // Update successful.
-// }).catch((error) => {
-//   // An error ocurred
-//   console.log(error);
-//   // ...
-// });
+
  handleUpdatedPass(newPassword)
 .then(() => {
     alert("updated password")
     setIsOpenPass(false)
-  // Update successful.
+  
 }).catch((error) => {
     console.log(error);
      setIsOpenPass(false)
-  // An error ocurred
-  // ...
+ 
 });
 }
 
+
 if(isLoading) return <div className="max-w-[200px] mx-auto mt-8"><ClipLoader /></div>
+
     return (
      <>
  <div className="max-w-md mx-auto bg-white shadow-md hover:shadow-lg rounded-2xl overflow-hidden p-6 flex items-start gap-5 transition duration-300">
