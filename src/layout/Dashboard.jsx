@@ -5,6 +5,7 @@ import useUserRole from "../hooks/useUserRole";
 
 const Dashboard = () => {
   const admin=useUserRole();
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar with fixed width */}

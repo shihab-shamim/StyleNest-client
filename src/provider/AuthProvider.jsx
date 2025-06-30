@@ -5,62 +5,63 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
-import useAxiosSecure from "../axios/useAxiosSecure";
+import useAxiosPublic from "../axios/useAxiosPublic";
+import axios, { Axios } from "axios";
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const axiosSecure=useAxiosSecure()
+  const axiosPublic = useAxiosPublic();
 
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const logOut=()=>{
-    setLoading(true)
-    return signOut(auth)
-  }
-
-  const logIn=(email,password)=>{
-
+  const logOut = () => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth,email,password)
-  }
+    return signOut(auth);
+  };
+
+  const logIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
-        setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
       setLoading(false);
 
-        const  userEmail={email:currentUser?.email}
-        if(currentUser){
-      setLoading(false);
-
-            const{data}=await axiosSecure.post("/jwt",{userEmail})
-            // console.log(data);
-
-        }
-        else{
-            const{data}=await axiosSecure.post("/logOut",{userEmail})
-            // console.log(data);
-
-
-        }
-     
+      const userEmail = { email: currentUser?.email };
+      if (currentUser) {
+        setLoading(false);
+        // const userEmai = { email: currentUser?.email };
+        const { data } = await axiosPublic.post("/jwt", { userEmail });
+        console.log(data);
+      } else {
+        const { data } = await axiosPublic.post("/logOut", { userEmail });
+        console.log(data);
+      }
     });
     return () => unsubscribe();
-  }, [axiosSecure]);
+  }, []);
+
+  const handleUpdatedPass = (password) => {
+    return updatePassword(user, password);
+  };
 
   const value = {
     createUser,
     user,
     loading,
     logOut,
-    logIn
+    logIn,
+    handleUpdatedPass,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

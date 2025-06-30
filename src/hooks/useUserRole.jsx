@@ -15,7 +15,6 @@ const useUserRole = () => {
 
         } 
     })
-    console.log(data?.role);
     
     const role=data?.role==="admin"?true:false;
     return role;}
