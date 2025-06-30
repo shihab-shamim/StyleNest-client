@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="text-2xl font-bold tracking-tighter">
-            TrendyTales
+            StyleNest
           </a>
 
           {/* Desktop Navigation */}
