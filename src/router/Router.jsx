@@ -9,6 +9,8 @@ import Private from "../private/Private";
 import Dashboard from "../layout/Dashboard";
 import MyCart from "../pages/dashboard/MyCart";
 import Profile from "../pages/user/Profile";
+import AllUser from "../pages/dashboard/AllUser";
+import AdminCheck from "../private/AdminCheck";
 
 
 
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
         {
           path:'profile',
           element:<Private><Profile/></Private>
+        },
+        {
+          path:"allUser",
+          element:<AdminCheck><AllUser/></AdminCheck>
         }
       ]
 
