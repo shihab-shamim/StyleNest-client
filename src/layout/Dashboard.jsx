@@ -7,14 +7,14 @@ const Dashboard = () => {
   const {role}=useUserRole();
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar with fixed width */}
-      <div className="w-[30px] md:w-64">
-       {role?<AdminNav/>: <UserNav />}
+        <div className="flex h-screen overflow-hidden">
+      {/* Fixed Sidebar */}
+      <div className="w-[30px] md:w-64 fixed top-0 left-0 h-full  shadow z-10">
+        {role ? <AdminNav /> : <UserNav />}
       </div>
 
-      {/* Main content area, take remaining space */}
-      <div className="flex-1">
+      {/* Main content area */}
+      <div className="flex-1 ml-[30px] md:ml-64 overflow-y-auto h-screen ">
         <Outlet />
       </div>
     </div>

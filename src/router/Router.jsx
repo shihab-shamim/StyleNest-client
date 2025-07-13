@@ -11,6 +11,7 @@ import MyCart from "../pages/dashboard/MyCart";
 import Profile from "../pages/user/Profile";
 import AllUser from "../pages/dashboard/AllUser";
 import AdminCheck from "../private/AdminCheck";
+import WelcomePage from "../pages/dashboard/WelcomePage";
 
 
 
@@ -52,7 +53,11 @@ const router = createBrowserRouter([
         {
           path:"allUser",
           element:<AdminCheck><AllUser/></AdminCheck>
-        }
+        },
+    {
+      index: true, 
+      element: <WelcomePage/>
+    }
       ]
 
     }
