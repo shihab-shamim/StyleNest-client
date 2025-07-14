@@ -1,48 +1,56 @@
 import React, { useState } from 'react';
 import { User, Shield, ShieldCheck, Search, Filter } from 'lucide-react';
 
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../axios/useAxiosSecure';
+import axios from 'axios';
+
 const AllUser = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      email: 'sarah.johnson@email.com',
-      role: 'user',
-      image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=100',
-    },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      email: 'michael.chen@email.com',
-      role: 'admin',
-      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100',
-    },
-    {
-      id: 3,
-      name: 'Emily Davis',
-      email: 'emily.davis@email.com',
-      role: 'user',
-      image: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=100',
-    },
-    {
-      id: 4,
-      name: 'David Wilson',
-      email: 'david.wilson@email.com',
-      role: 'user',
-      image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100',
-    }
-  ]);
+    const axiosSecure=useAxiosSecure()
+
+  // const [users, setUsers] = useState([
+  //   {
+  //     id: 1,
+  //     name: 'Sarah Johnson',
+  //     email: 'sarah.johnson@email.com',
+  //     role: 'user',
+  //     image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=100',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Michael Chen',
+  //     email: 'michael.chen@email.com',
+  //     role: 'admin',
+  //     image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Emily Davis',
+  //     email: 'emily.davis@email.com',
+  //     role: 'user',
+  //     image: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=100',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'David Wilson',
+  //     email: 'david.wilson@email.com',
+  //     role: 'user',
+  //     image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100',
+  //   }
+  // ]);
+   const {data:users=[],refetch,isLoading} = useQuery({ 
+        queryKey: ['users'], 
+        queryFn: async()=>{
+            const {data}=await axiosSecure.get("/users")
+          return data;
+
+
+        } 
+    })
 
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
 
-  const toggleUserRole = (userId) => {
-    setUsers(users.map(user =>
-      user.id === userId
-        ? { ...user, role: user.role === 'admin' ? 'user' : 'admin' }
-        : user
-    ));
-  };
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -50,6 +58,29 @@ const AllUser = () => {
     const matchesRole = roleFilter === 'all' || user.role === roleFilter;
     return matchesSearch && matchesRole;
   });
+
+  const handleMakeRole = async(user)=>{
+ 
+    if(user?.role ==="admin"){
+      const {data}=await axios.patch(`http://localhost:5000/users/${user?._id}`,{status:"user"})
+       
+      if(data?.matchedCount >0){
+        refetch()
+      }
+      
+    }
+    else{
+      // console.log("user",user?.role);
+      const {data}=await axios.patch(`http://localhost:5000/users/${user?._id}`,{status:"admin"})
+      
+     if(data?.matchedCount >0){
+        refetch()
+      }
+      
+
+    }
+
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -101,7 +132,7 @@ const AllUser = () => {
           </thead>
           <tbody>
             {filteredUsers.map(user => (
-              <tr key={user.id} className="border-b hover:bg-gray-50">
+              <tr key={user._id} className="border-b hover:bg-gray-50">
                 {/* Image + Name */}
                 <td className="px-6 py-4 flex items-center space-x-3">
                   <img src={user.image} alt={user.name} className="w-10 h-10 rounded-full object-cover border" />
@@ -124,7 +155,7 @@ const AllUser = () => {
                 {/* Action */}
                 <td className="px-6 py-4">
                   <button
-                    onClick={() => toggleUserRole(user.id)}
+                    onClick={() => handleMakeRole(user)}
                     className={`text-xs px-3 py-1 rounded-md font-medium transition ${
                       user.role === 'admin'
                         ? 'bg-red-100 text-red-700 hover:bg-red-200'
