@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Package,
   Save,
@@ -9,53 +9,50 @@ import {
   Tag,
   Image,
   FileText,
-  Settings
-} from 'lucide-react';
+  Settings,
+} from "lucide-react";
 
 const AddProduct = () => {
   const [productData, setProductData] = useState({
-    name: '',
-    price: '',
-    image: '',
-    category: '',
-    description: '',
+    name: "",
+    price: "",
+    image: "",
+    category: "",
+    description: "",
     isNewArrival: false,
-    stock: '',
-    ratings: '',
+    stock: "",
+    ratings: "",
     discount: false,
-    persent: ''
+    persent: "",
   });
- 
 
-
-
-  const [focusedField, setFocusedField] = useState('');
+  const [focusedField, setFocusedField] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setProductData(prev => ({
+    setProductData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Product Data:', productData);
+    console.log("Product Data:", productData);
   };
 
   const handleReset = () => {
     setProductData({
-      name: '',
-      price: '',
-      image: '',
-      category: '',
-      description: '',
+      name: "",
+      price: "",
+      image: "",
+      category: "",
+      description: "",
       isNewArrival: false,
-      stock: '',
-      ratings: '',
+      stock: "",
+      ratings: "",
       discount: false,
-      persent: ''
+      persent: "",
     });
   };
 
@@ -63,7 +60,9 @@ const AddProduct = () => {
     const stars = [];
     const fullStars = Math.floor(rating);
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />);
+      stars.push(
+        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+      );
     }
     const remainingStars = 5 - fullStars;
     for (let i = 0; i < remainingStars; i++) {
@@ -73,7 +72,7 @@ const AddProduct = () => {
   };
 
   return (
-     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 py-8 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 py-8 px-4 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -90,7 +89,9 @@ const AddProduct = () => {
           <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
             Product Management
           </h1>
-          <p className="text-xl text-blue-600 mb-6">Create and manage your product information with style</p>
+          <p className="text-xl text-blue-600 mb-6">
+            Create and manage your product information with style
+          </p>
           <div className="w-32 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 mx-auto rounded-full animate-pulse"></div>
         </div>
 
@@ -105,9 +106,11 @@ const AddProduct = () => {
                     <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
                       <Tag className="w-5 h-5 text-white" />
                     </div>
-                    <h2 className="text-2xl font-bold text-blue-900">Basic Information</h2>
+                    <h2 className="text-2xl font-bold text-blue-900">
+                      Basic Information
+                    </h2>
                   </div>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="form-group">
                       <label className="block text-sm font-semibold text-blue-800 mb-2">
@@ -119,19 +122,21 @@ const AddProduct = () => {
                           name="name"
                           value={productData.name}
                           onChange={handleInputChange}
-                          onFocus={() => setFocusedField('name')}
-                          onBlur={() => setFocusedField('')}
+                          onFocus={() => setFocusedField("name")}
+                          onBlur={() => setFocusedField("")}
                           className={`w-full px-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                            focusedField === 'name' 
-                              ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                              : 'border-blue-200 hover:border-blue-300'
+                            focusedField === "name"
+                              ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                              : "border-blue-200 hover:border-blue-300"
                           }`}
                           required
                           placeholder="Enter product name"
                         />
-                        <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 -z-10 transition-opacity duration-300 ${
-                          focusedField === 'name' ? 'opacity-20' : ''
-                        }`}></div>
+                        <div
+                          className={`absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 -z-10 transition-opacity duration-300 ${
+                            focusedField === "name" ? "opacity-20" : ""
+                          }`}
+                        ></div>
                       </div>
                     </div>
 
@@ -143,23 +148,23 @@ const AddProduct = () => {
                         name="category"
                         value={productData.category}
                         onChange={handleInputChange}
-                        onFocus={() => setFocusedField('category')}
-                        onBlur={() => setFocusedField('')}
+                        onFocus={() => setFocusedField("category")}
+                        onBlur={() => setFocusedField("")}
                         className={`w-full px-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                          focusedField === 'category' 
-                            ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                            : 'border-blue-200 hover:border-blue-300'
+                          focusedField === "category"
+                            ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                            : "border-blue-200 hover:border-blue-300"
                         }`}
                         required
                       >
                         <option value="">Select category</option>
-                        <option value="Electronics">📱 Electronics</option>
-                        <option value="Clothing">👕 Clothing</option>
-                        <option value="Books">📚 Books</option>
-                        <option value="Home & Garden">🏠 Home & Garden</option>
-                        <option value="Sports">⚽ Sports</option>
-                        <option value="Beauty">💄 Beauty</option>
-                        <option value="Other">📦 Other</option>
+                        <option value="t-shirt">👕 T-Shirt</option>
+                        <option value="shirt">👔 Shirt</option>
+                        <option value="pant">👖 Pant</option>
+                        <option value="jeans">👖 Jeans</option>
+                        <option value="hoodie">🧥 Hoodie</option>
+                        <option value="jacket">🧥 Jacket</option>
+                        <option value="saree">🥻 Saree</option>
                       </select>
                     </div>
                   </div>
@@ -176,12 +181,12 @@ const AddProduct = () => {
                           name="price"
                           value={productData.price}
                           onChange={handleInputChange}
-                          onFocus={() => setFocusedField('price')}
-                          onBlur={() => setFocusedField('')}
+                          onFocus={() => setFocusedField("price")}
+                          onBlur={() => setFocusedField("")}
                           className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                            focusedField === 'price' 
-                              ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                              : 'border-blue-200 hover:border-blue-300'
+                            focusedField === "price"
+                              ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                              : "border-blue-200 hover:border-blue-300"
                           }`}
                           min="0"
                           step="0.01"
@@ -200,12 +205,12 @@ const AddProduct = () => {
                         name="stock"
                         value={productData.stock}
                         onChange={handleInputChange}
-                        onFocus={() => setFocusedField('stock')}
-                        onBlur={() => setFocusedField('')}
+                        onFocus={() => setFocusedField("stock")}
+                        onBlur={() => setFocusedField("")}
                         className={`w-full px-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                          focusedField === 'stock' 
-                            ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                            : 'border-blue-200 hover:border-blue-300'
+                          focusedField === "stock"
+                            ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                            : "border-blue-200 hover:border-blue-300"
                         }`}
                         min="0"
                         required
@@ -214,18 +219,20 @@ const AddProduct = () => {
                     </div>
 
                     <div className="form-group">
-                      <label className="block text-sm font-semibold text-blue-800 mb-2">Rating</label>
+                      <label className="block text-sm font-semibold text-blue-800 mb-2">
+                        Rating
+                      </label>
                       <select
-                      required
+                        required
                         name="ratings"
                         value={productData.ratings}
                         onChange={handleInputChange}
-                        onFocus={() => setFocusedField('ratings')}
-                        onBlur={() => setFocusedField('')}
+                        onFocus={() => setFocusedField("ratings")}
+                        onBlur={() => setFocusedField("")}
                         className={`w-full px-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                          focusedField === 'ratings' 
-                            ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                            : 'border-blue-200 hover:border-blue-300'
+                          focusedField === "ratings"
+                            ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                            : "border-blue-200 hover:border-blue-300"
                         }`}
                       >
                         <option value="">Select rating</option>
@@ -243,21 +250,23 @@ const AddProduct = () => {
                   </div>
 
                   <div className="form-group">
-                    <label className="block text-sm font-semibold text-blue-800 mb-2">Image URL</label>
+                    <label className="block text-sm font-semibold text-blue-800 mb-2">
+                      Image URL
+                    </label>
                     <div className="relative">
                       <Image className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-500" />
                       <input
-                      required
+                        required
                         type="url"
                         name="image"
                         value={productData.image}
                         onChange={handleInputChange}
-                        onFocus={() => setFocusedField('image')}
-                        onBlur={() => setFocusedField('')}
+                        onFocus={() => setFocusedField("image")}
+                        onBlur={() => setFocusedField("")}
                         className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                          focusedField === 'image' 
-                            ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                            : 'border-blue-200 hover:border-blue-300'
+                          focusedField === "image"
+                            ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                            : "border-blue-200 hover:border-blue-300"
                         }`}
                         placeholder="https://example.com/image.jpg"
                       />
@@ -271,22 +280,26 @@ const AddProduct = () => {
                     <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
                       <FileText className="w-5 h-5 text-white" />
                     </div>
-                    <h2 className="text-2xl font-bold text-blue-900">Product Description</h2>
+                    <h2 className="text-2xl font-bold text-blue-900">
+                      Product Description
+                    </h2>
                   </div>
-                  
+
                   <div className="form-group">
-                    <label className="block text-sm font-semibold text-blue-800 mb-2">Description</label>
+                    <label className="block text-sm font-semibold text-blue-800 mb-2">
+                      Description
+                    </label>
                     <textarea
-                    required
+                      required
                       name="description"
                       value={productData.description}
                       onChange={handleInputChange}
-                      onFocus={() => setFocusedField('description')}
-                      onBlur={() => setFocusedField('')}
+                      onFocus={() => setFocusedField("description")}
+                      onBlur={() => setFocusedField("")}
                       className={`w-full px-4 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm resize-none ${
-                        focusedField === 'description' 
-                          ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                          : 'border-blue-200 hover:border-blue-300'
+                        focusedField === "description"
+                          ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                          : "border-blue-200 hover:border-blue-300"
                       }`}
                       rows="4"
                       placeholder="Enter detailed product description..."
@@ -300,14 +313,18 @@ const AddProduct = () => {
                     <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                       <Settings className="w-5 h-5 text-white" />
                     </div>
-                    <h2 className="text-2xl font-bold text-blue-900">Product Settings</h2>
+                    <h2 className="text-2xl font-bold text-blue-900">
+                      Product Settings
+                    </h2>
                   </div>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-bold text-blue-900 text-lg">New Arrival</h3>
+                          <h3 className="font-bold text-blue-900 text-lg">
+                            New Arrival
+                          </h3>
                           <p className="text-blue-600">Mark as new product</p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
@@ -326,12 +343,15 @@ const AddProduct = () => {
                     <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-bold text-blue-900 text-lg">Discount</h3>
-                          <p className="text-blue-600">Enable discount pricing</p>
+                          <h3 className="font-bold text-blue-900 text-lg">
+                            Discount
+                          </h3>
+                          <p className="text-blue-600">
+                            Enable discount pricing
+                          </p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input
-                          
                             type="checkbox"
                             name="discount"
                             checked={productData.discount}
@@ -346,24 +366,28 @@ const AddProduct = () => {
 
                   {productData.discount && (
                     <div className="form-group animate-slide-down">
-                      <label className="block text-sm font-semibold text-blue-800 mb-2">Discount Percentage</label>
+                      <label className="block text-sm font-semibold text-blue-800 mb-2">
+                        Discount Percentage
+                      </label>
                       <div className="relative">
                         <input
-                        required
+                          required
                           type="text"
                           name="persent"
                           value={productData.persent}
                           onChange={handleInputChange}
-                          onFocus={() => setFocusedField('persent')}
-                          onBlur={() => setFocusedField('')}
+                          onFocus={() => setFocusedField("persent")}
+                          onBlur={() => setFocusedField("")}
                           className={`w-full px-4 pr-10 py-3 border-2 rounded-xl transition-all duration-300 focus:outline-none bg-white/50 backdrop-blur-sm ${
-                            focusedField === 'persent' 
-                              ? 'border-blue-500 shadow-lg shadow-blue-200 scale-105' 
-                              : 'border-blue-200 hover:border-blue-300'
+                            focusedField === "persent"
+                              ? "border-blue-500 shadow-lg shadow-blue-200 scale-105"
+                              : "border-blue-200 hover:border-blue-300"
                           }`}
                           placeholder="10"
                         />
-                        <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-500 font-bold text-lg">%</span>
+                        <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-500 font-bold text-lg">
+                          %
+                        </span>
                       </div>
                     </div>
                   )}
@@ -371,16 +395,16 @@ const AddProduct = () => {
 
                 {/* Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-8 animate-fade-in-up animation-delay-800">
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className=" cursor-pointer flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-3 hover:from-blue-700 hover:to-indigo-700"
                   >
                     <Save className="w-6 h-6" />
                     <span>Add Product</span>
                   </button>
-                  <button 
-                    type="button" 
-                    onClick={handleReset} 
+                  <button
+                    type="button"
+                    onClick={handleReset}
                     className="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-3 hover:from-gray-600 hover:to-gray-700"
                   >
                     <RotateCcw className="w-6 h-6" />
@@ -398,16 +422,18 @@ const AddProduct = () => {
                 <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
                   <Eye className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-blue-900">Live Preview</h3>
+                <h3 className="text-xl font-bold text-blue-900">
+                  Live Preview
+                </h3>
               </div>
 
               {/* Product Preview Card */}
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 mb-4 border border-blue-200">
                 <div className="aspect-square bg-white rounded-xl mb-4 overflow-hidden">
                   {productData.image ? (
-                    <img 
-                      src={productData.image} 
-                      alt={productData.name || 'Product'} 
+                    <img
+                      src={productData.image}
+                      alt={productData.name || "Product"}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -416,11 +442,11 @@ const AddProduct = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
-                      {productData.category || 'Category'}
+                      {productData.category || "Category"}
                     </span>
                     {productData.isNewArrival && (
                       <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">
@@ -428,35 +454,44 @@ const AddProduct = () => {
                       </span>
                     )}
                   </div>
-                  
+
                   <h4 className="font-bold text-gray-900 text-sm">
-                    {productData.name || 'Product Name'}
+                    {productData.name || "Product Name"}
                   </h4>
-                  
+
                   {productData.ratings && (
                     <div className="flex items-center space-x-1">
                       {renderStars(parseFloat(productData.ratings))}
-                      <span className="text-xs text-gray-600">({productData.ratings})</span>
+                      <span className="text-xs text-gray-600">
+                        ({productData.ratings})
+                      </span>
                     </div>
                   )}
-                  
+
                   <p className="text-xs text-gray-600 line-clamp-2">
-                    {productData.description || 'Product description will appear here...'}
+                    {productData.description ||
+                      "Product description will appear here..."}
                   </p>
-                  
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="font-bold text-blue-600">
-                        ${productData.price || '0.00'}
+                        ${productData.price || "0.00"}
                       </span>
-                      {productData.discount && productData.persent && productData.price && (
-                        <span className="text-xs text-gray-500 line-through">
-                          ${Math.round(productData.price / (1 - parseInt(productData.persent) / 100))}
-                        </span>
-                      )}
+                      {productData.discount &&
+                        productData.persent &&
+                        productData.price && (
+                          <span className="text-xs text-gray-500 line-through">
+                            $
+                            {Math.round(
+                              productData.price *
+                                (1 + parseInt(productData.persent) / 100)
+                            )}
+                          </span>
+                        )}
                     </div>
                     <span className="text-xs text-gray-600">
-                      Stock: {productData.stock || '0'}
+                      Stock: {productData.stock || "0"}
                     </span>
                   </div>
                 </div>
