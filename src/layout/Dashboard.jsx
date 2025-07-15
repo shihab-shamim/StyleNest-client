@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
         <div className="flex h-screen overflow-hidden">
       {/* Fixed Sidebar */}
-      <div className="w-[30px] md:w-64 fixed top-0 left-0 h-full  shadow z-10">
+      <div className="w-[30px] md:w-64 fixed top-0 left-0 h-full  shadow z-50">
         {role ? <AdminNav /> : <UserNav />}
       </div>
 

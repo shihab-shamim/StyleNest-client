@@ -62,7 +62,7 @@ const AllUser = () => {
   const handleMakeRole = async(user)=>{
  
     if(user?.role ==="admin"){
-      const {data}=await axios.patch(`http://localhost:5000/users/${user?._id}`,{status:"user"})
+      const {data}=await axiosSecure.patch(`/users/${user?._id}`,{status:"user"})
        
       if(data?.matchedCount >0){
         refetch()
@@ -71,7 +71,7 @@ const AllUser = () => {
     }
     else{
       // console.log("user",user?.role);
-      const {data}=await axios.patch(`http://localhost:5000/users/${user?._id}`,{status:"admin"})
+      const {data}=await axiosSecure.patch(`/users/${user?._id}`,{status:"admin"})
       
      if(data?.matchedCount >0){
         refetch()

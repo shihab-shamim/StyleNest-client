@@ -11,7 +11,7 @@ export default function AdminNav() {
 
   const menuItems = [
     { icon: <ShoppingCart size={20} />, label: "All User", path: "/dashboard/allUser" },
-    { icon: <Package size={20} />, label: "All Product", path: "/dashboard/order" },
+    { icon: <Package size={20} />, label: "Add Product", path: "/dashboard/addProduct" },
     { icon: <User size={20} />, label: "Order Request", path: "/dashboard/profile" },
     { icon: <Star size={20} />, label: "Notification", path: "/dashboard/review" },
   ];
@@ -49,7 +49,7 @@ export default function AdminNav() {
       )}
 
       {/* Main content */}
-     <div className= " flex md:hidden">
+     <div className= " flex md:hidden z-100">
         {sidebarOpen ? <X size={28} onClick={toggleSidebar} /> : <Menu onClick={toggleSidebar} size={28} />}
      </div>
     </div>
