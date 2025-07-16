@@ -13,6 +13,7 @@ import AllUser from "../pages/dashboard/AllUser";
 import AdminCheck from "../private/AdminCheck";
 import WelcomePage from "../pages/dashboard/WelcomePage";
 import AddProduct from "../pages/dashboard/AddProduct";
+import AllProduct from "../pages/dashboard/AllProduct";
 
 
 
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
     {
       path:"addProduct",
       element:<AdminCheck><AddProduct/></AdminCheck>
+    },
+    {
+      path:"allProducts",
+      element:<AdminCheck><AllProduct/></AdminCheck>
     }
       ]
 

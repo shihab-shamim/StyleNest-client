@@ -12,7 +12,7 @@ export default function AdminNav() {
   const menuItems = [
     { icon: <ShoppingCart size={20} />, label: "All User", path: "/dashboard/allUser" },
     { icon: <Package size={20} />, label: "Add Product", path: "/dashboard/addProduct" },
-    { icon: <User size={20} />, label: "Order Request", path: "/dashboard/profile" },
+    { icon: <User size={20} />, label: "All Product", path: "/dashboard/allProducts" },
     { icon: <Star size={20} />, label: "Notification", path: "/dashboard/review" },
   ];
 
