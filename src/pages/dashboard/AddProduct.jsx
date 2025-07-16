@@ -41,14 +41,16 @@ const AddProduct = () => {
   };
 
    const addProduct = useMutation({
-    mutationFn: async(userInfo)=>{
-        const {data}=await axiosSecure.post('/users',userInfo)
+    mutationFn: async(productData)=>{
+        const {data}= await axiosSecure.post("/product",productData)
+        console.log(data);
         return data
 
     },
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['users'] })
+      handleReset()
       alert("Product Added successfully!");
     },
     onError: (error) => {
@@ -58,13 +60,8 @@ const AddProduct = () => {
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log("Product Data:", productData);
-    try {
-      const {data}= await axiosSecure.post("/product",productData)
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+   
+    addProduct.mutate(productData)
   };
 
   const handleReset = () => {
