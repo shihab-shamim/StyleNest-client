@@ -11,8 +11,12 @@ import {
   FileText,
   Settings,
 } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAxiosSecure from "../../axios/useAxiosSecure";
 
 const AddProduct = () => {
+  const queryClient = useQueryClient();
+  const axiosSecure=useAxiosSecure()
   const [productData, setProductData] = useState({
     name: "",
     price: "",
@@ -36,9 +40,31 @@ const AddProduct = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+   const addProduct = useMutation({
+    mutationFn: async(userInfo)=>{
+        const {data}=await axiosSecure.post('/users',userInfo)
+        return data
+
+    },
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['users'] })
+      alert("Product Added successfully!");
+    },
+    onError: (error) => {
+      alert(`Error deleting users: ${error.message}`);
+    },
+  })
+
+  const handleSubmit =async (e) => {
     e.preventDefault();
     console.log("Product Data:", productData);
+    try {
+      const {data}= await axiosSecure.post("/product",productData)
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleReset = () => {
