@@ -14,6 +14,7 @@ import AdminCheck from "../private/AdminCheck";
 import WelcomePage from "../pages/dashboard/WelcomePage";
 import AddProduct from "../pages/dashboard/AddProduct";
 import AllProduct from "../pages/dashboard/AllProduct";
+import EditProduct from "../pages/dashboard/EditProduct";
 
 
 
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
     {
       path:"allProducts",
       element:<AdminCheck><AllProduct/></AdminCheck>
+    },
+    {
+      path:"editProduct/:id",
+      element:<AdminCheck><EditProduct/></AdminCheck>
+
     }
       ]
 

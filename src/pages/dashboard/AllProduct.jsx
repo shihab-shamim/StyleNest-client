@@ -28,8 +28,12 @@ const AllProduct = () => {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['products'] })
-    //   handleReset()
-    //   alert("Product Delete successfully!");
+ 
+     Swal.fire({
+      title: "Deleted!",
+      text: "Product deleted.",
+      icon: "success"
+    });
     },
     onError: (error) => {
       alert(`Error deleting users: ${error.message}`);
@@ -51,19 +55,13 @@ Swal.fire({
 }).then(async(result) => {
   if (result.isConfirmed) {
     deleteProduct.mutate(id)
-    Swal.fire({
-      title: "Deleted!",
-      text: "Product deleted.",
-      icon: "success"
-    });
+   
   }
 });
    
    }
 
-   const handleEdit =(id)=>{
-    // console.log(id);
-   }
+ 
 
     return (
          <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12">
@@ -82,7 +80,6 @@ Swal.fire({
             <ProductCard
               key={index}
               product={product}
-              onEdit={() => handleEdit(product?._id)}
               onDelete={() => handleDelete(product?._id)}
             />
           ))}

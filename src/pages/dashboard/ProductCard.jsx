@@ -1,7 +1,9 @@
 import React from 'react';
 import { Edit3, Trash2, Star, StarHalf } from 'lucide-react';
+import { Link } from 'react-router';
 
-const ProductCard = ({ product, onEdit, onDelete }) => {
+const ProductCard = ({ product, onDelete }) => {
+  console.log(product);
   const renderStars = (rating) => {
     const numRating = parseFloat(rating) || 0;
     const fullStars = Math.floor(numRating);
@@ -45,12 +47,12 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
         </div>
 
         <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
-          <button
-            onClick={onEdit}
+          <Link to={`/dashboard/editProduct/${product?._id}`}
+           
             className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110"
           >
             <Edit3 className="w-4 h-4" />
-          </button>
+          </Link>
           <button
             onClick={onDelete}
             className="bg-red-500 cursor-pointer hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110"
