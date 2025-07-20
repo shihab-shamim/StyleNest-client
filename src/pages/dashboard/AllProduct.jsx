@@ -3,16 +3,25 @@ import useAxiosPublic from "../../axios/useAxiosPublic";
 import ProductCard from "./ProductCard";
 import useAxiosSecure from "../../axios/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import { MoonLoader } from "react-spinners";
 
 
 const AllProduct = () => {
     const axiosPublic=useAxiosPublic();
     const axiosSecure=useAxiosSecure();
       const queryClient = useQueryClient();
+       const [total,setTotal]=useState({});
+       const [page, setPage] = useState(1);
+       const [search, setSearch] = useState("");
+      const limit = 6;
+
+      const totalPages = Math.ceil(total / limit);
+
      const {data=[],refetch,isLoading} = useQuery({ 
-        queryKey: ['products'], 
+        queryKey: ['products',page,search], 
         queryFn: async()=>{
-            const {data}=await axiosPublic.get("/products")
+            const {data}=await axiosPublic.get(`/products?page=${page}&limit=${limit}&search=${search}`)
           return data;
 
 
@@ -60,6 +69,27 @@ Swal.fire({
 });
    
    }
+    useEffect(() => {
+     const dataCountFetch = async () => {
+       try {
+         const { data } = await axiosSecure.get(`/productCount?search=${search}`);
+         setTotal(data?.count);
+         
+       } catch (error) {
+         console.error("Error fetching data count:", error);
+       }
+     };
+   
+     dataCountFetch();
+   }, [search]);
+   
+ 
+  //  if(isLoading){
+  //   return (<div>
+  //     <MoonLoader />
+  //   </div>)
+  //  }
+   
 
  
 
@@ -74,6 +104,22 @@ Swal.fire({
             Discover our premium collection of products with smooth animations and intuitive interactions
           </p>
         </div>
+        <label className="input border-1 border-black w-full mb-8">
+  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      strokeWidth="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
+  <input type="search" className="grow" placeholder="Search" onChange={(e)=>setSearch(e.target.value)} />
+ 
+</label>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-8">
           {data.map((product, index) => (
@@ -84,6 +130,20 @@ Swal.fire({
             />
           ))}
         </div>
+        
+        {isLoading && <div className="flex justify-center"> <MoonLoader color="blue" /></div>}
+
+ <div className="mt-4 flex gap-2">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => setPage(i + 1)}
+            className={`px-3 py-1 border ${page === i + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
       </div>
     </div>
     ); 

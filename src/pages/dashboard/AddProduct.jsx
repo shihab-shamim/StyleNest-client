@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Package,
   Save,
@@ -16,7 +16,8 @@ import useAxiosSecure from "../../axios/useAxiosSecure";
 
 const AddProduct = () => {
   const queryClient = useQueryClient();
-  const axiosSecure=useAxiosSecure()
+  const axiosSecure=useAxiosSecure();
+
   const [productData, setProductData] = useState({
     name: "",
     price: "",
@@ -39,6 +40,8 @@ const AddProduct = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
+
 
    const addProduct = useMutation({
     mutationFn: async(productData)=>{

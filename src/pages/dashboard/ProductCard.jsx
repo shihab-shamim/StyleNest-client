@@ -3,7 +3,6 @@ import { Edit3, Trash2, Star, StarHalf } from 'lucide-react';
 import { Link } from 'react-router';
 
 const ProductCard = ({ product, onDelete }) => {
-  console.log(product);
   const renderStars = (rating) => {
     const numRating = parseFloat(rating) || 0;
     const fullStars = Math.floor(numRating);
