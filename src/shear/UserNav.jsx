@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ShoppingCart, Package, User, Star } from "lucide-react";
+import { Menu, X, ShoppingCart, Package, User, Star, Home } from "lucide-react";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 
@@ -17,6 +17,7 @@ export default function UserNav() {
     { icon: <Package size={20} />, label: "My Order", path: "/dashboard/order" },
     { icon: <User size={20} />, label: "My Profile", path: "/dashboard/profile" },
     { icon: <Star size={20} />, label: "My Review", path: "/dashboard/review" },
+    { icon: <Home size={20} />, label: "Home", path: "/" },
   ];
 
   return (

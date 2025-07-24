@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ShoppingCart, Package, User, Star } from "lucide-react";
+import { Menu, X, ShoppingCart, Package, User, Star, Home } from "lucide-react";
 import { Link } from "react-router";
 
 export default function AdminNav() {
@@ -14,6 +14,7 @@ export default function AdminNav() {
     { icon: <Package size={20} />, label: "Add Product", path: "/dashboard/addProduct" },
     { icon: <User size={20} />, label: "All Product", path: "/dashboard/allProducts" },
     { icon: <Star size={20} />, label: "Notification", path: "/dashboard/review" },
+    { icon: <Home size={20} />, label: "Home", path: "/" },
   ];
 
   return (
