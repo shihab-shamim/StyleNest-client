@@ -1,117 +1,21 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosPublic from '../../axios/useAxiosPublic';
 
 const NewRevealProduct = () => {
-    const products=[
-  {
-    id: '1',
-    name: 'T-shirt with Tape Details',
-    price: 120,
-    image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'T-Shirts',
-    description: 'Comfortable cotton t-shirt with modern tape details',
-    isNewArrival: true,
-    stock: 25,
-    ratings: 4.5,
-    discount: false,
-    persent: 0
-  },
-  {
-    id: '2',
-    name: 'Skinny Fit Jeans',
-    price: 240,
-    originalPrice: 260,
-    image: 'https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'Jeans',
-    description: 'Modern skinny fit jeans with premium denim',
-    isNewArrival: false,
-    stock: 18,
-    ratings: 3.5,
-    discount: true,
-    persent: 20
-  },
-  {
-    id: '3',
-    name: 'Checkered Shirt',
-    price: 180,
-    image: 'https://images.pexels.com/photos/297933/pexels-photo-297933.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'Shirts',
-    description: 'Classic checkered shirt perfect for casual wear',
-    isNewArrival: true,
-    stock: 32,
-    ratings: 4.5,
-    discount: false,
-    persent: 0
-  },
-  {
-    id: '4',
-    name: 'Sleeve Striped T-shirt',
-    price: 130,
-    originalPrice: 160,
-    image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'T-Shirts',
-    description: 'Trendy striped sleeve t-shirt in vibrant colors',
-    isNewArrival: false,
-    stock: 14,
-    ratings: 4.5,
-    discount: true,
-    persent: 30
-  },
-  {
-    id: '5',
-    name: 'Polo Gradient Shirt',
-    price: 145,
-    image: 'https://images.pexels.com/photos/2220316/pexels-photo-2220316.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'Polo',
-    description: 'Premium polo shirt with gradient design',
-    isNewArrival: true,
-    stock: 28,
-    ratings: 4.0,
-    discount: false,
-    persent: 0
-  },
-  {
-    id: '6',
-    name: 'Black Striped Shirt',
-    price: 120,
-    originalPrice: 150,
-    image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'Shirts',
-    description: 'Elegant black striped shirt for formal occasions',
-    isNewArrival: false,
-    stock: 0,
-    ratings: 5.0,
-    discount: true,
-    persent: 20
-  },
-  {
-    id: '7',
-    name: 'Courage Graphic T-shirt',
-    price: 145,
-    image: 'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'T-Shirts',
-    description: 'Motivational graphic t-shirt with bold design',
-    isNewArrival: true,
-    stock: 22,
-    ratings: 4.0,
-    discount: false,
-    persent: 0
-  },
-  {
-    id: '8',
-    name: 'Loose Fit Bermuda Shorts',
-    price: 80,
-    originalPrice: 100,
-    image: 'https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=400',
-    category: 'Shorts',
-    description: 'Comfortable loose fit bermuda shorts for summer',
-    isNewArrival: false,
-    stock: 35,
-    ratings: 3.0,
-    discount: true,
-    persent: 20
+  const axiosPublic=useAxiosPublic()
+
+const {data:products=[]}=useQuery({
+  queryKey:["isNewArrival"],
+  queryFn:async()=>{
+    const {data}=await axiosPublic.get(`/isNewArrival`)
+  
+    return data
   }
-]
+})
+
+
     return (
         <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -138,7 +42,7 @@ const NewRevealProduct = () => {
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8 p-10">
         {products.map((product) => (
           <ProductCard
-            key={product.id}
+            key={product._id}
             product={product}
             // onAddToCart={onAddToCart}
           />

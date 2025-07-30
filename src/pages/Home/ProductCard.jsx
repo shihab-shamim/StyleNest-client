@@ -19,7 +19,7 @@ const ProductCard = ({ product, onAddToCart }) => {
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        
+
         {/* New Arrival Badge */}
         {product.isNewArrival && (
           <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 text-xs font-semibold rounded-full shadow-lg">
@@ -28,16 +28,32 @@ const ProductCard = ({ product, onAddToCart }) => {
         )}
 
         {/* Discount Badge */}
-        {product.discount && product.persent > 0 && (
-          <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 text-xs font-semibold rounded-md">
-            -{product.persent}%
+        {product.discount && product.persent && (
+          <div className="absolute top-3 right-3">
+            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+              -{product.persent}%
+            </span>
           </div>
         )}
 
+        {/* Wishlist Button */}
+        <button
+          onClick={() => setIsLiked(!isLiked)}
+          className={`absolute top-12 right-3 p-2 rounded-full transition-all duration-200 ${
+            isLiked
+              ? 'bg-red-500 text-white'
+              : 'bg-white/80 hover:bg-white text-gray-600 hover:text-red-500'
+          }`}
+        >
+          <Heart size={16} className={isLiked ? 'fill-current' : ''} />
+        </button>
+
         {/* Hover Actions */}
-        <div className={`absolute inset-0 bg-black/20 flex items-center justify-center gap-3 transition-all duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}>
+        <div
+          className={`absolute inset-0 bg-black/20 flex items-center justify-center gap-3 transition-all duration-300 ${
+            isHovered ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
           <button
             onClick={() => onAddToCart(product)}
             className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium shadow-lg transform transition-all duration-200 hover:scale-105 flex items-center gap-2"
@@ -46,20 +62,6 @@ const ProductCard = ({ product, onAddToCart }) => {
             Add to Cart
           </button>
         </div>
-
-        {/* Wishlist Button */}
-        <button
-          onClick={() => setIsLiked(!isLiked)}
-          className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-200 ${
-            product.discount ? 'top-12' : ''
-          } ${
-            isLiked 
-              ? 'bg-red-500 text-white' 
-              : 'bg-white/80 hover:bg-white text-gray-600 hover:text-red-500'
-          }`}
-        >
-          <Heart size={16} className={isLiked ? 'fill-current' : ''} />
-        </button>
       </div>
 
       {/* Product Info */}
@@ -74,7 +76,7 @@ const ProductCard = ({ product, onAddToCart }) => {
           {product.name}
         </h3>
 
-        {/* Rating */}
+        {/* Rating (if you want to use it later) */}
         {/* <StarRating rating={product.ratings} /> */}
 
         {/* Price */}
@@ -82,11 +84,15 @@ const ProductCard = ({ product, onAddToCart }) => {
           <span className="text-lg font-bold text-gray-900">
             ${product.price}
           </span>
-          {product.discount && product.originalPrice && (
-            <span className="text-sm text-gray-500 line-through">
-              ${product.originalPrice}
-            </span>
-          )}
+        {product.discount && product.persent && (
+              <span className="text-sm text-gray-500 line-through">
+                  {Math.round(
+                              product.price *
+                                (1 + parseInt(product.persent) / 100)
+                            )}
+                {/* ${(parseFloat(product.price) / (1 - parseFloat(product.persent) / 100)).toFixed(2)} */}
+              </span>
+            )}
         </div>
 
         {/* Stock Status */}
