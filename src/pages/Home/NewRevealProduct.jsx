@@ -6,10 +6,12 @@ import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { Navigate, useNavigate } from 'react-router';
 import useUserRole from '../../hooks/useUserRole';
+import useAxiosSecure from '../../axios/useAxiosSecure';
 
 const NewRevealProduct = () => {
   const axiosPublic=useAxiosPublic();
-  const {user,logOut}=useAuth();
+  const {user}=useAuth();
+  const axiosSecure=useAxiosSecure()
   const {role,refetch}=useUserRole();
 
 const navigate=useNavigate();
@@ -27,7 +29,7 @@ const {data:products=[]}=useQuery({
 })
 
 
-const handleAddToCart =(product)=>{
+const handleAddToCart =async(product)=>{
   // console.log(product);
   if(!user){
     Swal.fire({
@@ -53,8 +55,21 @@ if(role){
 
 }
 else{
-  console.log(product);
-  
+  // console.log(product);
+  const{name,price,image,category,description,isNewArrival ,stock,ratings,discount,persent}=product
+  const addCard={name,price,image,category,description,isNewArrival,stock,ratings,discount,persent,email:user?.email}
+  console.log(addCard);
+  const  {data}=await axiosSecure.post("/addCarts",addCard);
+  if(data?.insertedId){
+     Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Cart Add SuccessFully ",
+  showConfirmButton: false,
+  timer: 1500
+});
+  }
+
 }
 
 }

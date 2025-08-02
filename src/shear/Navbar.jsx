@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, Search, ShoppingCart, User } from "lucide-react";
 import { Link as Links } from "react-router";
 import useAuth from "../hooks/useAuth";
+import useCarts from "../hooks/useCarts";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem("mode") || "light");
   const { user,logOut} = useAuth();
- 
+  const carts=useCarts() ||[];
   const handleLogOut=()=>{
     logOut()
     .then(res =>{
@@ -182,12 +183,54 @@ const Navbar = () => {
               <button className="hover:text-gray-600 relative group">
                 <ShoppingCart className="w-6 h-6" />
                 <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                  0
+                  {carts?.length || 0}
                 </span>
                 <div className="absolute right-0 top-full mt-2 w-80 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="p-4 text-center text-gray-500">
-                    Your cart is empty
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      {/* Desktop Table View */}
+     
+
+      {/* Mobile Card View */}
+      <div className="">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 border-b border-gray-200">
+          <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Products</h3>
+        </div>
+        <div className="divide-y divide-gray-100">
+          {carts.map((product) => (
+            <div 
+              key={product._id} 
+              className="p-4 hover:bg-gradient-to-r hover:from-blue-25 hover:to-indigo-25 transition-all duration-200"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="relative flex-shrink-0">
+                  <img
+                    className="h-16 w-16 rounded-lg object-cover shadow-sm"
+                    src={product.image}
+                    alt={product.name}
+                  />
+                  <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      {product.name}
+                    </p>
+                    <p className="text-sm font-bold text-gray-900 ml-2">
+                      ${product.price.toLocaleString()}
+                    </p>
                   </div>
+                  <div className="mt-1">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {product.category}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
                 </div>
               </button>
 
