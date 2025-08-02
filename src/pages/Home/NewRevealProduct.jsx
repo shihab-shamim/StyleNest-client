@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../axios/useAxiosPublic';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import { Navigate, useNavigate } from 'react-router';
+import useUserRole from '../../hooks/useUserRole';
 
 const NewRevealProduct = () => {
-  const axiosPublic=useAxiosPublic()
+  const axiosPublic=useAxiosPublic();
+  const {user,logOut}=useAuth();
+  const {role,refetch}=useUserRole();
+
+const navigate=useNavigate();
+useEffect(()=>{
+  refetch()
+},[refetch,user])
 
 const {data:products=[]}=useQuery({
   queryKey:["isNewArrival"],
@@ -14,6 +25,40 @@ const {data:products=[]}=useQuery({
     return data
   }
 })
+
+
+const handleAddToCart =(product)=>{
+  // console.log(product);
+  if(!user){
+    Swal.fire({
+  position: "top-end",
+  icon: "error",
+  title: "Please Log in ",
+  showConfirmButton: false,
+  timer: 1500
+});
+return  navigate('/signin')
+}
+
+if(role){
+  
+  return   Swal.fire({
+  position: "top-end",
+  icon: "error",
+  title: "You are Admin ",
+  showConfirmButton: false,
+  timer: 1500
+});
+
+
+}
+else{
+  console.log(product);
+  
+}
+
+}
+
 
 
     return (
@@ -44,7 +89,7 @@ const {data:products=[]}=useQuery({
           <ProductCard
             key={product._id}
             product={product}
-            // onAddToCart={onAddToCart}
+            onAddToCart={handleAddToCart}
           />
         ))}
 

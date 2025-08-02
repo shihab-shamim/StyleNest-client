@@ -6,7 +6,7 @@ const useUserRole = () => {
     const {user}=useAuth();
     const axiosSecure=useAxiosSecure()
     const email=user?.email;
-    const {data,isLoading} = useQuery({ 
+    const {data,isLoading,refetch} = useQuery({ 
         queryKey: ['user'], 
         queryFn: async()=>{
             const {data}=await axiosSecure.get(`/role?email=${email}`)
@@ -17,6 +17,6 @@ const useUserRole = () => {
     })
     
     const role=data?.role==="admin"?true:false;
-    return {role,isLoading};}
+    return {role,isLoading,refetch};}
 
 export default useUserRole;
